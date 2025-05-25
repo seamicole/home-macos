@@ -1,0 +1,10 @@
+# Ignore everything by default
+*
+
+# Track only the following files
+!README.md
+!.gitignore
+
+# Track only the following subdirectories
+!.config/
+!.hammerspoon/
