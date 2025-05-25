@@ -7,4 +7,6 @@
 
 # Track only the following subdirectories
 !.config/
+!.config/**
 !.hammerspoon/
+!.hammerspoon/**
