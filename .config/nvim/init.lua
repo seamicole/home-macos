@@ -14,14 +14,14 @@ vim.opt.cursorline = true
 -- Configure line wrapping
 vim.opt.wrap = false
 
--- Configure true color support
-vim.opt.termguicolors = true
-
 -- Display vertical line stops
 vim.opt.colorcolumn = "88,100"
 
 -- Configure clipboard settings
 vim.opt.clipboard = "unnamedplus"
+
+-- Configure true color support
+vim.opt.termguicolors = true
 
 -- ┌────────────────────────────────────────────────────────────────────────────────────
 -- │ INDENTATION
@@ -34,9 +34,10 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 -- ┌────────────────────────────────────────────────────────────────────────────────────
--- │ UNDO
+-- │ PERSISTENT UNDOS
 -- └────────────────────────────────────────────────────────────────────────────────────
 
+-- Enable undos that persist accross sessions
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.expand("~/.local/share/nvim/undo")
 
