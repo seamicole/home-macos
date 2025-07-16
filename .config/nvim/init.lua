@@ -33,6 +33,16 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
+-- Configure tabstops and indentation for JavaScript and TypeScript
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.expandtab = true
+  end,
+})
+
 -- ┌────────────────────────────────────────────────────────────────────────────────────
 -- │ PERSISTENT UNDOS
 -- └────────────────────────────────────────────────────────────────────────────────────
