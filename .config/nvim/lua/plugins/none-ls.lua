@@ -3,6 +3,7 @@ return {
   lazy = false,
   dependencies = {
         "nvim-lua/plenary.nvim",
+        "nvimtools/none-ls-extras.nvim",
     },
   config = function()
     local null_ls = require("null-ls")
@@ -11,7 +12,7 @@ return {
 
     null_ls.setup({
       sources = {
-        -- Prettier formatter
+        -- Prettier
         formatting.prettier.with({
           command = "npx",
           args = { "prettier", "--stdin-filepath", "$FILENAME" },
@@ -25,6 +26,9 @@ return {
             "markdown",
           },
         }),
+        
+        -- ESLint
+        require("none-ls.diagnostics.eslint"),
       },
 
       -- Format on save
