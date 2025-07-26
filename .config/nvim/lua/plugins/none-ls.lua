@@ -27,6 +27,7 @@ return {
             "json",
             "yaml",
             "markdown",
+            "scss",
           },
         }),
 
