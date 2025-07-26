@@ -4,6 +4,7 @@
 # Track only the following files
 !README.md
 !.gitignore
+!.zshrc
 
 # Track only the following subdirectories
 !.config/
