@@ -14,26 +14,29 @@ return {
     local augroup = vim.api.nvim_create_augroup("FormatOnSave", {})
 
     null_ls.setup({
-      sources = {
-        -- Prettier
-        formatting.prettier.with({
-          command = "npx",
-          args = { "prettier", "--stdin-filepath", "$FILENAME" },
-          filetypes = {
-            "typescript",
-            "typescriptreact",
-            "javascript",
-            "javascriptreact",
-            "json",
-            "yaml",
-            "markdown",
-            "scss",
-          },
-        }),
+        sources = {
+            -- Prettier
+            formatting.prettier.with({
+                command = "npx",
+            args = { "prettier", "--stdin-filepath", "$FILENAME" },
+            filetypes = {
+              "typescript",
+              "typescriptreact",
+              "javascript",
+              "javascriptreact",
+              "json",
+              "yaml",
+              "markdown",
+              "scss",
+            },
+          }),
 
-        -- ESLint
-        require("none-ls.diagnostics.eslint"),
-      },
+          -- ESLint
+          require("none-ls.diagnostics.eslint"),
+
+          -- Dart formatter
+          formatting.dart_format,
+        },
 
       -- Format on save
       on_attach = function(client, bufnr)
