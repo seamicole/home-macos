@@ -40,6 +40,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "css", "scss", "less",
     "javascript", "javascriptreact",
     "typescript", "typescriptreact",
+    "dart",
   },
   callback = function()
     vim.bo.tabstop = 2
@@ -83,6 +84,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
     vim.opt.formatoptions:remove({ "c", "r", "o" })
   end,
 })
+
+-- ┌────────────────────────────────────────────────────────────────────────────────────
+-- │ KEY MAPPINGS
+-- └────────────────────────────────────────────────────────────────────────────────────
+
+-- Diagnostics navigation + float
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 
 -- ┌────────────────────────────────────────────────────────────────────────────────────
 -- │ LAZY PLUGIN MANAGER

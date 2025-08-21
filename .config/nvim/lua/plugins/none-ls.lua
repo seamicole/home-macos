@@ -7,45 +7,38 @@ return {
   },
   config = function()
     local null_ls = require("null-ls")
-
     local formatting = null_ls.builtins.formatting
 
-    -- Define the augroup ONCE, outside on_attach
     local augroup = vim.api.nvim_create_augroup("FormatOnSave", {})
 
     null_ls.setup({
-        sources = {
-            -- Prettier
-            formatting.prettier.with({
-                command = "npx",
-            args = { "prettier", "--stdin-filepath", "$FILENAME" },
-            filetypes = {
-              "typescript",
-              "typescriptreact",
-              "javascript",
-              "javascriptreact",
-              "json",
-              "yaml",
-              "markdown",
-              "scss",
-            },
-          }),
+      sources = {
+        -- Prettier
+        formatting.prettier.with({
+          command = "npx",
+          args = { "prettier", "--stdin-filepath", "$FILENAME" },
+          filetypes = {
+            "typescript","typescriptreact",
+            "javascript","javascriptreact",
+            "json","yaml","markdown","scss","css","html",
+          },
+        }),
+        -- ESLint
+        require("none-ls.diagnostics.eslint"),
 
-          -- ESLint
-          require("none-ls.diagnostics.eslint"),
+        -- Dart formatter disabled (dartls handles Dart)
+        -- formatting.dart_format,
+      },
 
-          -- Dart formatter
-          formatting.dart_format,
-        },
-
-      -- Format on save
+      -- Format on save for non-Dart only
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
           vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
             group = augroup,
             buffer = bufnr,
-            callback = function()
+            callback = function(args)
+              if vim.bo[args.buf].filetype == "dart" then return end
               vim.lsp.buf.format({ bufnr = bufnr })
             end,
           })
