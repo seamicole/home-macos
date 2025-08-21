@@ -89,6 +89,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- │ KEY MAPPINGS
 -- └────────────────────────────────────────────────────────────────────────────────────
 
+-- Search
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
+
 -- Diagnostics navigation + float
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })
