@@ -106,3 +106,46 @@ vim.opt.rtp:prepend("~/.config/nvim/lazy/lazy.nvim")
 
 -- Setup plugins
 require("lazy").setup("plugins")
+
+-- ┌────────────────────────────────────────────────────────────────────────────────────
+-- │ TELESCOPE
+-- └────────────────────────────────────────────────────────────────────────────────────
+
+-- Safely require telescope (avoids errors if not yet installed or disabled)
+local ok_telescope, telescope = pcall(require, "telescope")
+if ok_telescope then
+  -- Safely require telescope builtins (core pickers: files, buffers, etc.)
+  local ok_builtin, builtin = pcall(require, "telescope.builtin")
+
+  -- Safely require live_grep_args extension (advanced ripgrep with args)
+  local ok_lga, lga_ext = pcall(function()
+    return require("telescope").extensions.live_grep_args
+  end)
+
+  -- ┌──────────────────────────────────────────────────────────────────────────────────
+  -- │ TELESCOPE KEYBINDINGS
+  -- └──────────────────────────────────────────────────────────────────────────────────
+
+  -- Only define keymaps if builtin pickers are available
+  if ok_builtin then
+    -- Find files in project (respects .gitignore)
+    vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+
+    -- List open buffers
+    vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
+
+    -- Show recently opened files
+    vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Recent files" })
+
+    -- Search Neovim help tags
+    vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
+  end
+
+  -- Live grep (project-wide search)
+  -- Prefer live_grep_args if available, else fallback to plain live_grep
+  if ok_lga then
+    vim.keymap.set("n", "<leader>fg", lga_ext.live_grep_args, { desc = "Live grep (args)" })
+  elseif ok_builtin then
+    vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
+  end
+end
